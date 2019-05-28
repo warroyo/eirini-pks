@@ -106,7 +106,7 @@
     uaa.app.$DOMAIN
     ```
 
-#install CF
+## Install CF
 
 1. create a namespace for cf
 
