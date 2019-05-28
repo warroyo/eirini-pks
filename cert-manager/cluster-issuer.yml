@@ -1,0 +1,23 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod # Arbitrary string, you'll reference this when you create a certificate
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory # LetsEncrypt API URL
+    email: <your email> # Your email address
+
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-prod # Arbitrary string
+    dns01:
+
+      # Here we define a list of DNS-01 providers that can solve DNS challenges
+      providers:
+        - name: dns # arbitrary string, you'll reference this later in your request.
+          clouddns:
+            project: <your  gcp project>
+          # This is the secret used to access the service account
+            serviceAccountSecretRef:
+              name: clouddns
+              key: clouddns.key.json
