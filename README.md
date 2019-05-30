@@ -4,18 +4,24 @@
 
 1. enable privledged containers
 
-2. install heapster
+2. increase ulimits on workers
+
+    ```bash
+    bosh ssh -d .... worker/... -c 'ulimit -n 1048576'
+    ```
+
+3. install heapster
     ```bash
     kubectl apply -f heapster
     ```
 
-3. add a cluster role binding for the heapster service account
+4. add a cluster role binding for the heapster service account
 
     ```bash
     kubectl create clusterrolebinding heapster --clusterrole cluster-admin --serviceaccount=kube-system:heapster
     ```
 
-4. install helm https://docs.pivotal.io/runtimes/pks/1-4/helm.html
+5. install helm https://docs.pivotal.io/runtimes/pks/1-4/helm.html
 
     ```bash
     kubectl apply -f helm/
@@ -24,7 +30,7 @@
     ```
 
 
-4. create a lets encrypt cluster issuer good blog here on how to do this. https://blog.59s.io/cert-manager
+6. create a lets encrypt cluster issuer good blog here on how to do this. https://blog.59s.io/cert-manager
 
 
     ```bash
@@ -54,16 +60,16 @@
 
     ```
 
-5. create cluster issuer, this gets fiarly specific for GCP dns. the blog mentioned above covers AWS as well.
+7. create cluster issuer, this gets fiarly specific for GCP dns. the blog mentioned above covers AWS as well.
 
-6. create a a gcp service account & k8s secret to store your GCP service account. require gcloud installed and logged in on your laptop
+8. create a a gcp service account & k8s secret to store your GCP service account. require gcloud installed and logged in on your laptop
 
     ```bash
     chmod +x cert-manager/gcp-account.sh
     cert-manager/gcp-account.sh <gcp-project-name>
     ```
 
-7. update the cluster issuer, modify cert-manager/cluster-issuer.yml to add your email and gcp project name
+9.  update the cluster issuer, modify cert-manager/cluster-issuer.yml to add your email and gcp project name
 
 
     ```bash
