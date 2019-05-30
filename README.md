@@ -160,7 +160,8 @@
     ```bash
     bits: registry.app.$DOMAIN 
     router: *.app.$DOMAIN
-    ssh: *.ssh.app.$DOMAIN 
+    ssh: *.ssh.app.$DOMAIN , ssh.app.$DOMAIN
+        
     tcp: *.tcp.app.$DOMAIN
     ```
 
